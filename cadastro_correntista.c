@@ -1,8 +1,17 @@
 #include <stdio.h>
 
-#include "structures/cc.h"
+#include "includes/structures/cc.h"
+#include "includes/manipula_arquivos.h"
 
-int incluiCorrentista(correntista novoCorrentista) {
+int incluiCorrentista(correntista novoCorrentista, FILE *arquivo) {
+    size_t retorno;
+    retorno = gravaArquivo(arquivo,(char *)&novoCorrentista,sizeof(correntista));
+    if (retorno != 0)
+    {
+        puts("incluiCorrentista: erro em gravaArquivo\n");
+        return -1;
+    }
+    
     return 0;
 }
 

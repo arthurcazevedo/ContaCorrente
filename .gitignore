@@ -3,3 +3,9 @@
 /cadastro_correntista.o
 /cc.o
 /tput.txt
+manipula_arquivos.o
+cc.dat
+cc.exe
+ceps.dat
+clientes.dat
+extrato.dat

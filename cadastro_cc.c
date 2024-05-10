@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "structures/cc.h"
+#include "includes/structures/cc.h"
 
 cc criaCC(__uint128_t idCorrentista,double saldoInicial) {
     cc novaCC;

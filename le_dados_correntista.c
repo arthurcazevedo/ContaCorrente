@@ -1,17 +1,25 @@
 #include <stdio.h>
 
-#include "structures/cc.h"
+#include "includes/structures/cc.h"
 
-int leDadosCorrentista() {
+correntista leDadosCorrentista() {
     correntista correntista;
 
-    scanf("%s\n",correntista.nome);
-    scanf("%s\n",correntista.identidade);
-    scanf("%s\n",correntista.cpf);
-    scanf("%s\n",correntista.nascimento);
-    scanf("%s\n",correntista.cep);
-    scanf("%s\n",correntista.numero);
-    scanf("%s\n",correntista.complemento);
+    printf("Nome........: ");
+    fgets(correntista.nome,sizeof(correntista.nome),stdin);
+    printf("Identidade..: ");
+    fgets(correntista.identidade,sizeof(correntista.identidade),stdin);
+    printf("cpf.........: ");
+    fgets(correntista.cpf,sizeof(correntista.cpf),stdin);
+    printf("nascimento..: ");
+    fgets(correntista.nascimento,sizeof(correntista.nascimento),stdin);
+    printf("CEP.........: ");
+    fgets(correntista.cep,sizeof(correntista.cep),stdin);
+    printf("numero.........: ");
+    fgets(correntista.numero,sizeof(correntista.numero),stdin);
+    printf("complemento....: ");
+    fgets(correntista.complemento,sizeof(correntista.complemento),stdin);
 
+    return correntista;
 
 }
