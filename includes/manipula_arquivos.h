@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-FILE *abreArquivo(char *nomeArquivo, char *modo);
+int abreArquivo(char *nomeArquivo, char *modo, FILE *arquivo);
 
 size_t gravaArquivo(FILE *arquivo, char *registro, size_t tamanho);
 

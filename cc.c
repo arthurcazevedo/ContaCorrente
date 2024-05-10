@@ -43,36 +43,32 @@ int abreArquivosDeDados() {
     char nomeArqExtrato[] = "extrato.dat";
     char nomeArqCEPs[] = "ceps.dat";
 
-    abriu = abreArquivo(nomeArqClientes,"a+");
-    if (abriu == NULL)
+    int retorno;
+
+    if (retorno = abreArquivo(nomeArqClientes,"a+",abriu) != 0)
     {
-        printf("abreArquivosDeDados: erro na abertura de %s, código: %d\n",nomeArqClientes,ferror(abriu));
+        printf("abreArquivosDeDados: erro na abertura de %s, código: %d\n",nomeArqClientes,retorno);
         return -1;
     }
     arqClientes = abriu;
 
-    abriu = abreArquivo(nomeArqCC,"a+");
-    if (abriu == NULL)
+    if (retorno = abreArquivo(nomeArqCC,"a+",abriu) != 0)
     {
-        printf("abreArquivosDeDados: erro na abertura de %s, código: %d\n",nomeArqCC,ferror(abriu));
+        printf("abreArquivosDeDados: erro na abertura de %s, código: %d\n",nomeArqCC,retorno);
         return -1;
     }
     arqCC = abriu;
 
-    
-    abriu = abreArquivo(nomeArqExtrato,"a+");
-    if (abriu == NULL)
+    if (retorno = abreArquivo(nomeArqExtrato,"a+",abriu) != 0)
     {
-        printf("abreArquivosDeDados: erro na abertura de %s, código: %d\n",nomeArqExtrato,ferror(abriu));
+        printf("abreArquivosDeDados: erro na abertura de %s, código: %d\n",nomeArqExtrato,retorno);
         return -1;
     }
     arqExtrato = abriu;
 
-    
-    abriu = abreArquivo(nomeArqCEPs,"a+");
-    if (abriu == NULL)
+    if (retorno = abreArquivo(nomeArqCEPs,"r",abriu) != 0)
     {
-        printf("abreArquivosDeDados: erro na abertura de %s, código: %d\n",nomeArqCEPs,ferror(abriu));
+        printf("abreArquivosDeDados: erro na abertura de %s, código: %d\n",nomeArqCEPs,retorno);
         return -1;
     }
     arqCEPs = abriu;

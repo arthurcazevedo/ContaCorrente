@@ -1,19 +1,19 @@
 #include <stdio.h>
+#include <errno.h>
 
 #include "includes/manipula_arquivos.h"
 
-FILE *abreArquivo(char *nomeArquivo, char *modo) {
-    FILE *arquivo;
-        int codErro;
+int abreArquivo(char *nomeArquivo, char *modo, FILE *arquivo) {
+    int erro;
 
     arquivo = fopen(nomeArquivo, modo);
-
-    if(codErro = ferror(arquivo) != 0) {
-        printf("abreArquivo: erro em fopen: %d\n",codErro);
-        return NULL;
+    erro = errno;
+    if(erro != 0) {
+        printf("abreArquivo: erro em fopen nome do arquivo: %s, erro: %d\n",nomeArquivo, errno);
+        return erro;
     }
 
-    return arquivo;
+    return 0;
 }
 
 size_t gravaArquivo(FILE *arquivo, char *registro, size_t tamanho) {
@@ -21,9 +21,7 @@ size_t gravaArquivo(FILE *arquivo, char *registro, size_t tamanho) {
 
     totalGravado = fwrite(registro,1,tamanho,arquivo);
     if(totalGravado != tamanho) {
-        int codErro;
-        codErro = ferror(arquivo);
-        printf("gravaArquivo: erro em fwrite: %d\n",codErro);
+        printf("gravaArquivo: erro em fwrite: %d\n",errno);
         return -1;
     }
     totalGravado = fechaArquivo(arquivo);
@@ -35,7 +33,8 @@ size_t leArquivo(FILE *arquivo, char *registro, size_t tamanho) {
 
     totalLido = fread(registro,tamanho,1,arquivo);
 
-    if(totalLido != tamanho) {
+    if((totalLido != tamanho) || (errno != 0)) {
+        printf("gravaArquivo: erro em fread: %d\n",errno);
         return -1;
     }
     return 0;
