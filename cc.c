@@ -1,8 +1,17 @@
 #include <stdio.h>
 
-#include "structures/cc.h"
-#include "cadastro_correntista.h"
-#include "cadastro_cc.h"
+#include "includes/structures/cc.h"
+#include "includes/cadastro_correntista.h"
+#include "includes/cadastro_cc.h"
+#include "includes/manipula_arquivos.h"
+
+
+FILE *arqClientes;
+FILE *arqCC;
+FILE *arqExtrato;
+FILE *arqCEPs;
+
+FILE *abriu;
 
 char menu() {
     char opcao,lido;
@@ -27,15 +36,70 @@ char menu() {
     return opcao;
 }
 
+int abreArquivosDeDados() {
+
+    char nomeArqClientes[] = "clientes.dat";
+    char nomeArqCC[] = "cc.dat";
+    char nomeArqExtrato[] = "extrato.dat";
+    char nomeArqCEPs[] = "ceps.dat";
+
+    abriu = abreArquivo(nomeArqClientes,"a+");
+    if (abriu == NULL)
+    {
+        printf("abreArquivosDeDados: erro na abertura de %s, código: %d\n",nomeArqClientes,ferror(abriu));
+        return -1;
+    }
+    arqClientes = abriu;
+
+    abriu = abreArquivo(nomeArqCC,"a+");
+    if (abriu == NULL)
+    {
+        printf("abreArquivosDeDados: erro na abertura de %s, código: %d\n",nomeArqCC,ferror(abriu));
+        return -1;
+    }
+    arqCC = abriu;
+
+    
+    abriu = abreArquivo(nomeArqExtrato,"a+");
+    if (abriu == NULL)
+    {
+        printf("abreArquivosDeDados: erro na abertura de %s, código: %d\n",nomeArqExtrato,ferror(abriu));
+        return -1;
+    }
+    arqExtrato = abriu;
+
+    
+    abriu = abreArquivo(nomeArqCEPs,"a+");
+    if (abriu == NULL)
+    {
+        printf("abreArquivosDeDados: erro na abertura de %s, código: %d\n",nomeArqCEPs,ferror(abriu));
+        return -1;
+    }
+    arqCEPs = abriu;
+    
+    return 0;
+}
+
 int main(int argc, char **argv)
 {
     char opcao;
     char *ultimoParametro;
     int resultado;
-    // apresenta menu
-    ultimoParametro = argv[--argc];
+
+    // só pra não reclamar do parâmetro não utilizado
+    ultimoParametro = argv[0];
     puts(ultimoParametro);
+
+    resultado = abreArquivosDeDados();
+    if (resultado != 0)
+    {
+        printf("main: erro em abreArquivosDeDados: %d", resultado);
+    }
+    
+    // apresenta menu
+
     opcao = menu();
+
     while( opcao != '0')
     {
         resultado = 0;
@@ -70,7 +134,8 @@ int main(int argc, char **argv)
             case '4':
                 puts("Inclusao de cliente");
                 correntista novoCorrentista;
-                resultado = incluiCorrentista(novoCorrentista);
+                novoCorrentista = leDadosCorrentista();
+                resultado = incluiCorrentista(novoCorrentista, arqClientes);
                 if (resultado != 0)
                 {
                     puts("Erro na inclusao do cliente");
